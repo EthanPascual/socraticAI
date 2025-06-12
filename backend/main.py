@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import spacy
 
+
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 history = [
