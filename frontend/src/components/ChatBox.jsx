@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import axios from 'axios';
 
-function ChatBox() {
+function ChatBox({sessionId}) {
     const [message, setMessage] = useState("")
     const [response, setResponse] = useState("")
     const [history, setHistory] = useState([])
@@ -14,7 +14,7 @@ function ChatBox() {
             console.log('Sending a Message: ' + message);
             addHistory({ role: "user", content: message })
             setMessage("");
-            const res = await axios.post("http://localhost:8000/chat", {message: message});
+            const res = await axios.post("http://localhost:8000/chat", {message: message, sessionId:sessionId});
             console.log(res)
             addHistory({ role: "socrates", content: res.data.response })
             

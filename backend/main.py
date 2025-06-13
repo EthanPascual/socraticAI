@@ -6,15 +6,17 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import spacy
 from fastapi.middleware.cors import CORSMiddleware
+from collections import defaultdict
 
 
 
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
-history = [
-   {"role": "system", "content" : "You are Socrates, answer or respond as Socrates would, trying to simulate Socratic dialogue. Keep answers to a paragraph max, and keep everything on one line"}
-]
+def populateRole():
+   return [{"role": "system", "content" : "You are Socrates, answer or respond as Socrates would, trying to simulate Socratic dialogue. Keep answers to a paragraph max, and keep everything on one line"}]
+
+histories = defaultdict(lambda: populateRole())
 
 
 nlp = spacy.load("en_core_web_sm")
@@ -34,7 +36,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # React dev server
+    allow_origins=["http://localhost:5173"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -43,6 +45,7 @@ app.add_middleware(
 
 class UserInput(BaseModel):
    message: str
+   sessionId: str
 
 
 @app.get("/")
@@ -54,12 +57,12 @@ async def root():
 async def chat(input: UserInput):
    try:
        processedText = preprocess(input.message)
-       history.append({"role": "user", "content" : processedText})
+       histories[input.sessionId].append({"role": "user", "content" : processedText})
        output = client.chat.completions.create(
            model="gpt-4o-mini",
-           messages=history
+           messages=histories[input.sessionId]
        )
-       history.append(output.choices[0].message)
+       histories[input.sessionId].append(output.choices[0].message)
        return {"response" : output.choices[0].message.content}
    except OpenAIError as e:
        print(f"OpenAI API Error : {e}")
