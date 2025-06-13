@@ -14,7 +14,7 @@ function ChatBox({sessionId}) {
             console.log('Sending a Message: ' + message);
             addHistory({ role: "user", content: message })
             setMessage("");
-            const res = await axios.post("http://localhost:8000/chat", {message: message, sessionId:sessionId});
+            const res = await axios.post("https://socraticai.onrender.com/chat", {message: message, sessionId:sessionId});
             console.log(res)
             addHistory({ role: "socrates", content: res.data.response })
             
