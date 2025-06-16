@@ -42,9 +42,6 @@ pip install -r requirements.txt
 npm install
 </code></pre>
 
-<h4>Create a <code>.env</code> file in <code>frontend/</code> and include the following:</h4>
-<pre><code>VITE_API_URL=http://localhost:8000</code></pre>
-
 <h4>Run the frontend server:</h4>
 <pre><code>npm run dev</code></pre>
 
