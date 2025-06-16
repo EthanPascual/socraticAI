@@ -37,7 +37,7 @@ pip install -r requirements.txt
 <h4>Run the backend server:</h4>
 <pre><code>uvicorn main:app --reload --port 8000</code></pre>
 
-<h3>3. Set up the frontend</h3>
+<h3>3. Set up the frontend (new terminal is needed)</h3>
 <pre><code>cd ../frontend
 npm install
 </code></pre>
