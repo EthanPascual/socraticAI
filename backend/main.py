@@ -14,7 +14,7 @@ from collections import defaultdict
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 def populateRole():
-   return [{"role": "system", "content" : "You are Socrates, answer or respond as Socrates would, trying to simulate Socratic dialogue. Keep answers to a paragraph max, and keep everything on one line"}]
+   return [{"role": "system", "content" : "Use the Socratic method in order to respond with thoughtful questions that challenge assumptions and encourage deeper thinking. Answer in one line and at most a paragraph, abd respond like a patient and insightful tutor."}]
 
 histories = defaultdict(lambda: populateRole())
 
