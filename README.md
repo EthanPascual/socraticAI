@@ -20,7 +20,7 @@
 
 <h3>1. Clone the repository</h3>
 <pre><code>git clone https://github.com/EthanPascual/socraticAI.git
-cd socratic-ai
+cd socraticAI
 </code></pre>
 
 <h3>2. Set up the backend</h3>
